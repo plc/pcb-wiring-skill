@@ -1,4 +1,4 @@
-# PCB Wiring Skill
+# Pinout Lookup
 
 Look up component pinouts and generate wiring tables for PCB projects.
 
