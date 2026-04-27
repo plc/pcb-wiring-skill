@@ -11,7 +11,7 @@ This repo stores component pinout data (boards, displays, sensors) and a Claude 
 Users install with:
 ```bash
 mkdir -p ~/.claude/skills/pinout-lookup
-curl -sL https://raw.githubusercontent.com/plc/pcb-wiring-skill/main/skill.md \
+curl -sL https://raw.githubusercontent.com/plc/pinout-lookup-skill/main/skill.md \
   > ~/.claude/skills/pinout-lookup/SKILL.md
 ```
 
@@ -31,7 +31,7 @@ Changes to `skill.md` itself require users to re-run the curl command. There is 
 
 ### Do not hardcode paths in skill.md
 
-The skill runs on other people's machines. Early versions used `~/Documents/pcb-wiring-skill/` everywhere which only worked for one person. The skill must fetch from GitHub, not reference local paths.
+The skill runs on other people's machines. Early versions used `~/Documents/pinout-lookup-skill/` everywhere which only worked for one person. The skill must fetch from GitHub, not reference local paths.
 
 ### Do not put wiring tables in pinout files
 

@@ -6,7 +6,7 @@ A Claude Code skill for looking up component pinouts and generating wiring table
 
 ```bash
 mkdir -p ~/.claude/skills/pinout-lookup
-curl -sL https://raw.githubusercontent.com/plc/pcb-wiring-skill/main/skill.md \
+curl -sL https://raw.githubusercontent.com/plc/pinout-lookup-skill/main/skill.md \
   > ~/.claude/skills/pinout-lookup/SKILL.md
 ```
 

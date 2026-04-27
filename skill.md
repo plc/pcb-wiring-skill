@@ -16,14 +16,14 @@ allowed-tools:
 
 # Pinout Lookup Skill
 
-Look up component pinouts and generate wiring tables for PCB projects. Pinout data is stored in the GitHub repo `plc/pcb-wiring-skill`.
+Look up component pinouts and generate wiring tables for PCB projects. Pinout data is stored in the GitHub repo `plc/pinout-lookup-skill`.
 
 ## Fetching Pinout Data
 
-Fetch files from `https://raw.githubusercontent.com/plc/pcb-wiring-skill/main/`. For example:
+Fetch files from `https://raw.githubusercontent.com/plc/pinout-lookup-skill/main/`. For example:
 
-- Read a file: `curl -sL https://raw.githubusercontent.com/plc/pcb-wiring-skill/main/boards/xiao-esp32s3.md`
-- List a directory: `gh api repos/plc/pcb-wiring-skill/contents/boards --jq '.[].name'` (if `gh` is available), or check the repo README for available components
+- Read a file: `curl -sL https://raw.githubusercontent.com/plc/pinout-lookup-skill/main/boards/xiao-esp32s3.md`
+- List a directory: `gh api repos/plc/pinout-lookup-skill/contents/boards --jq '.[].name'` (if `gh` is available), or check the repo README for available components
 
 Component directories: `boards/`, `displays/`, `sensors/`, and any others present.
 
@@ -35,7 +35,7 @@ When the user asks how to wire two components together:
 2. Fetch and read the matched files to get pinouts and bus defaults
 3. Use the board's "Bus Defaults" section (I2C, SPI, UART pin assignments) to determine correct wiring based on the peripheral's interface type
 4. Output a wiring table using the format below -- peripheral on left, board on right, table only, no ASCII pinout diagrams unless the user asks
-5. Do not modify files in the `plc/pcb-wiring-skill` repo
+5. Do not modify files in the `plc/pinout-lookup-skill` repo
 
 ### Wiring Table Format
 
@@ -83,7 +83,7 @@ When a requested component has no `.md` file in the repo:
 
 ### If the user wants an issue
 
-Create an issue on `plc/pcb-wiring-skill`. Use `gh issue create -R plc/pcb-wiring-skill` if available, otherwise give the user a link to `https://github.com/plc/pcb-wiring-skill/issues/new` with the details below:
+Create an issue on `plc/pinout-lookup-skill`. Use `gh issue create -R plc/pinout-lookup-skill` if available, otherwise give the user a link to `https://github.com/plc/pinout-lookup-skill/issues/new` with the details below:
 
 - **Title:** `Add <component type>: <component name>`
 - **Labels:** `new-board`, `new-display`, or `new-sensor` (pick the appropriate one; create the label if it does not exist)
