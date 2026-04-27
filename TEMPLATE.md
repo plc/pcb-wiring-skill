@@ -3,6 +3,12 @@
 Structure for adding new files. USB port always faces NORTH in board diagrams.
 Display/peripheral pins at TOP unless otherwise noted.
 
+## File Naming
+
+- Lowercase, dashes instead of underscores or spaces
+- Include key identifying info: `<model>-<variant>.md` or `<model>-<size>-<interface>.md`
+- Examples: `xiao-esp32s3.md`, `ssd1306-096-i2c.md`, `bme280-i2c.md`
+
 ## Board (`boards/`)
 
 ```markdown
@@ -48,6 +54,8 @@ Source: <manufacturer wiki URL>
 ```markdown
 # <Display Name>
 
+Source: <manufacturer product page or datasheet URL>
+
 <Resolution, interface, driver IC, voltage range. One line.>
 
 ## Pinout (<orientation note>)
@@ -64,7 +72,7 @@ Source: <manufacturer wiki URL>
 
 ## Wiring to <Board Name>
 
-<ASCII wiring table for each board in boards/>
+<Wiring table following WIRING_FORMAT.md for each board in boards/>
 ```
 
 ## How to Populate
