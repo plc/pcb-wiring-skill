@@ -17,7 +17,7 @@ curl -sL https://raw.githubusercontent.com/plc/pcb-wiring-skill/main/skill.md \
 
 The skill fetches pinout files from this repo at runtime via raw GitHub URLs. There is no local clone. Changes to component files in this repo are immediately available to all users.
 
-Changes to `skill.md` itself require users to re-run the curl command.
+Changes to `skill.md` itself require users to re-run the curl command. There is no auto-update mechanism for standalone skills. Future option: package as a Claude Code plugin for marketplace distribution with proper versioning and auto-update.
 
 ## Key files
 
