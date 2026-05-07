@@ -39,6 +39,18 @@ jobs:
             8. No wiring tables in pinout files (wiring is computed at runtime by the skill)
             9. No images committed to the repo
 
+            ## Data accuracy verification
+
+            This is critical. Use web search to verify the pinout data is accurate:
+            - If a Source URL is provided, fetch it and cross-check pin names, pin order,
+              and bus assignments against the manufacturer's documentation.
+            - If Source is TODO, search for the component's official datasheet or wiki page
+              and verify the pinout data matches. Include the URL you found in your review.
+            - Check that I2C addresses, SPI modes, voltage levels, and other electrical
+              specs are correct.
+            - Flag any discrepancies between the PR's data and the official source as
+              "request changes" -- incorrect pinout data can damage hardware.
+
             For skill.md changes, verify:
             10. YAML frontmatter is present with name and description
             11. No hardcoded local paths (must use GitHub raw URLs)
