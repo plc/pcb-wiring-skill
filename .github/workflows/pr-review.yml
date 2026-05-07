@@ -15,48 +15,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: "--max-turns 50"
           prompt: |
-            You are reviewing a PR for a pinout data repository. Be efficient with your
-            turns -- read what you need, do one web search if needed, then post your review.
+            Review this PR for a pinout data repository.
 
-            ## Steps (do these in order)
+            Read the diff, then read pinout_template.md and CONTRIBUTING.md.
+            Check the changed files against these rules:
 
-            1. Read the PR diff to understand what changed.
-            2. Read pinout_template.md and CONTRIBUTING.md from the repo for the expected format.
-            3. Check the structural checklist below against the changed files.
-            4. If a Source URL is provided in the pinout file, fetch it to verify key data
-               (pin names, pin order, I2C address, voltage). If Source is TODO, do one web
-               search for the component datasheet and spot-check. Note any discrepancies.
-            5. Post your review as a single PR review (approve or request changes).
-               Do not leave multiple separate comments.
-            6. If you approved and there are no merge conflicts, run: gh pr merge --squash --auto
-
-            ## Structural checklist
-
-            For pinout files:
-            - Correct directory (boards/, displays/, sensors/, etc.)
-            - File naming: lowercase, dashes, key identifiers
+            - Correct directory (boards/, displays/, sensors/)
+            - Lowercase dash-separated filename
             - Follows pinout_template.md structure
-            - Source link present (URL or "TODO" is acceptable)
-            - ASCII diagram orientation (USB north for boards, pin header top for peripherals)
-            - Position notation: L1-L7, R1-R7 for physical positions
-            - Board files have Bus Defaults section
-            - No wiring tables (wiring is computed at runtime)
+            - Has Source: URL or Source: TODO
+            - ASCII diagram orientation correct (USB north for boards)
+            - No wiring tables in pinout files
             - No images committed
+            - Board files have Bus Defaults
 
-            For skill.md:
-            - YAML frontmatter present
-            - No hardcoded local paths
-            - Inlined WIRING_FORMAT.md kept in sync
+            If a source URL is in the file, fetch it and spot-check that the pin
+            names and order match. Flag inaccurate pin data as a blocker.
 
-            ## Review actions
-
-            - All good: approve with short summary, then merge.
-            - Issues found: request changes with specific feedback. Incorrect pinout data
-              that could damage hardware is always a blocker.
-            - Minor nits (Source: TODO, formatting): approve but mention as suggestions.
+            Post a single PR review: approve if good, request changes if not.
+            After approving, run: gh pr merge --squash --auto
