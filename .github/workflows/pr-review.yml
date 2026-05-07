@@ -19,56 +19,44 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--max-turns 25"
+          claude_args: "--max-turns 50"
           prompt: |
-            Review this pull request against the project's contribution standards.
+            You are reviewing a PR for a pinout data repository. Be efficient with your
+            turns -- read what you need, do one web search if needed, then post your review.
 
-            This repo stores component pinout data (boards, displays, sensors) as markdown
-            files, plus a Claude Code skill definition (skill.md). Most PRs will add or edit
-            pinout files.
+            ## Steps (do these in order)
 
-            ## Review checklist
+            1. Read the PR diff to understand what changed.
+            2. Read pinout_template.md and CONTRIBUTING.md from the repo for the expected format.
+            3. Check the structural checklist below against the changed files.
+            4. If a Source URL is provided in the pinout file, fetch it to verify key data
+               (pin names, pin order, I2C address, voltage). If Source is TODO, do one web
+               search for the component datasheet and spot-check. Note any discrepancies.
+            5. Post your review as a single PR review (approve or request changes).
+               Do not leave multiple separate comments.
+            6. If you approved and there are no merge conflicts, run: gh pr merge --squash --auto
 
-            For pinout file changes, verify:
-            1. File is in the correct directory (boards/, displays/, sensors/, etc.)
-            2. File naming: lowercase, dashes, includes key identifiers
-            3. Follows the structure in pinout_template.md
-            4. Source link is present (URL or "TODO" is acceptable)
-            5. ASCII diagram uses correct orientation (USB north for boards, pin header at top for peripherals)
-            6. Position notation matches convention (L1-L7, R1-R7 for physical pin positions)
-            7. Board files include a Bus Defaults section (I2C, SPI, UART pin assignments)
-            8. No wiring tables in pinout files (wiring is computed at runtime by the skill)
-            9. No images committed to the repo
+            ## Structural checklist
 
-            ## Data accuracy verification
+            For pinout files:
+            - Correct directory (boards/, displays/, sensors/, etc.)
+            - File naming: lowercase, dashes, key identifiers
+            - Follows pinout_template.md structure
+            - Source link present (URL or "TODO" is acceptable)
+            - ASCII diagram orientation (USB north for boards, pin header top for peripherals)
+            - Position notation: L1-L7, R1-R7 for physical positions
+            - Board files have Bus Defaults section
+            - No wiring tables (wiring is computed at runtime)
+            - No images committed
 
-            This is critical. Use web search to verify the pinout data is accurate:
-            - If a Source URL is provided, fetch it and cross-check pin names, pin order,
-              and bus assignments against the manufacturer's documentation.
-            - If Source is TODO, search for the component's official datasheet or wiki page
-              and verify the pinout data matches. Include the URL you found in your review.
-            - Check that I2C addresses, SPI modes, voltage levels, and other electrical
-              specs are correct.
-            - Flag any discrepancies between the PR's data and the official source as
-              "request changes" -- incorrect pinout data can damage hardware.
+            For skill.md:
+            - YAML frontmatter present
+            - No hardcoded local paths
+            - Inlined WIRING_FORMAT.md kept in sync
 
-            For skill.md changes, verify:
-            10. YAML frontmatter is present with name and description
-            11. No hardcoded local paths (must use GitHub raw URLs)
-            12. If WIRING_FORMAT.md content changed, the inlined copy in skill.md is also updated
+            ## Review actions
 
-            For any changes:
-            13. No unrelated or unnecessary changes
-            14. Commit messages are clear
-
-            ## Actions
-
-            - If the PR meets all applicable criteria: approve it and leave a short summary
-              of what was added/changed.
-            - If there are issues: request changes with specific, actionable feedback
-              referencing the checklist items above. Be direct about what needs fixing.
-            - For minor issues (e.g. Source: TODO is fine per guidelines): approve but
-              mention them as suggestions, not blockers.
-
-            After approving, if the PR has no failing checks and no merge conflicts,
-            merge it using: gh pr merge --squash --auto
+            - All good: approve with short summary, then merge.
+            - Issues found: request changes with specific feedback. Incorrect pinout data
+              that could damage hardware is always a blocker.
+            - Minor nits (Source: TODO, formatting): approve but mention as suggestions.
